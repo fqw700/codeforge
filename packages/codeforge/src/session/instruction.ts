@@ -85,6 +85,12 @@ export namespace InstructionPrompt {
       }
     }
 
+    // Auto-memory: read .codeforge/memory.md
+    const autoMemoryPath = path.join(Instance.worktree, ".codeforge", "memory.md")
+    if (await Filesystem.exists(autoMemoryPath)) {
+      paths.add(path.resolve(autoMemoryPath))
+    }
+
     for (const file of globalFiles()) {
       if (await Filesystem.exists(file)) {
         paths.add(path.resolve(file))

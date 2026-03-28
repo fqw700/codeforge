@@ -18,6 +18,8 @@ import { ModelID, ProviderID } from "@/provider/schema"
 import { Cause, Effect, Exit, Layer, ServiceMap } from "effect"
 import { makeRuntime } from "@/effect/run-service"
 import { isOverflow as overflow } from "./overflow"
+import { AutoMemory } from "../memory/auto-memory"
+
 
 export namespace SessionCompaction {
   const log = Log.create({ service: "session.compaction" })
@@ -335,6 +337,17 @@ When constructing the summary, try to stick to this template:
 
         if (processor.message.error) return "stop"
         if (result === "continue") yield* bus.publish(Event.Compacted, { sessionID: input.sessionID })
+
+        // Auto-memory
+        if (result === "continue") {
+          try {
+            const parts = yield* session.parts({ sessionID: input.sessionID, messageID: processor.message.id })
+            const textPart = parts.find((p: any) => p.type === "text")
+            if (textPart && "text" in textPart && textPart.text) {
+              yield* Effect.promise(() => AutoMemory.processCompactionSummary(textPart.text as string))
+            }
+          } catch {}
+        }
         return result
       })
 

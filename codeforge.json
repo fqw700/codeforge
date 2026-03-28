@@ -1,0 +1,50 @@
+{
+  "$schema": "https://YOUR_DOMAIN.ai/config.json",
+  "provider": {
+    "volcengine": {
+      "options": {
+        "apiKey": "8ea88e16-ea21-489b-ab3d-150a675f1fba",
+        "baseURL": "https://ark.cn-beijing.volces.com/api/coding/v3"
+      },
+      "models": {
+        "ark-code-latest": {
+          "name": "Auto (智能选择)",
+          "limit": { "context": 128000, "output": 16384 }
+        },
+        "doubao-seed-2.0-code": {
+          "name": "Doubao-Seed-2.0-Code",
+          "limit": { "context": 128000, "output": 16384 }
+        },
+        "doubao-seed-2.0-pro": {
+          "name": "Doubao-Seed-2.0-Pro",
+          "limit": { "context": 128000, "output": 16384 }
+        },
+        "doubao-seed-2.0-lite": {
+          "name": "Doubao-Seed-2.0-Lite",
+          "limit": { "context": 128000, "output": 16384 }
+        },
+        "doubao-seed-code": {
+          "name": "Doubao-Seed-Code",
+          "limit": { "context": 128000, "output": 16384 }
+        },
+        "minimax-m2.5": {
+          "name": "MiniMax-M2.5",
+          "limit": { "context": 128000, "output": 16384 }
+        },
+        "kimi-k2.5": {
+          "name": "Kimi-K2.5",
+          "limit": { "context": 256000, "output": 32768 }
+        },
+        "glm-4.7": {
+          "name": "GLM-4.7",
+          "limit": { "context": 128000, "output": 16384 }
+        },
+        "deepseek-v3.2": {
+          "name": "DeepSeek-V3.2",
+          "limit": { "context": 128000, "output": 16384 }
+        }
+      }
+    }
+  },
+  "model": "volcengine/ark-code-latest"
+}
