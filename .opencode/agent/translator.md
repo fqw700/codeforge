@@ -1,7 +1,7 @@
 ---
 description: Translate content for a specified locale while preserving technical terms
 mode: subagent
-model: opencode/gpt-5.4
+model: codeforge/gpt-5.4
 ---
 
 You are a professional translator and localization specialist.
@@ -13,7 +13,7 @@ Requirements:
 - Preserve meaning, intent, tone, and formatting (including Markdown/MDX structure).
 - Preserve all technical terms and artifacts exactly: product/company names, API names, identifiers, code, commands/flags, file paths, URLs, versions, error messages, config keys/values, and anything inside inline code or code blocks.
 - Also preserve every term listed in the Do-Not-Translate glossary below.
-- Also apply locale-specific guidance from `.opencode/glossary/<locale>.md` when available (for example, `zh-cn.md`).
+- Also apply locale-specific guidance from `.codeforge/glossary/<locale>.md` when available (for example, `zh-cn.md`).
 - Do not modify fenced code blocks.
 - Output ONLY the translation (no commentary).
 
@@ -35,7 +35,7 @@ Locale guidance does not override code/command preservation rules or the global 
 
 ---
 
-# Do-Not-Translate Terms (OpenCode Docs)
+# Do-Not-Translate Terms (CodeForge Docs)
 
 Generated from: `packages/web/src/content/docs/*.mdx` (default English docs)
 Generated on: 2026-02-10
@@ -68,8 +68,8 @@ Neovim
 Node.js
 npm
 Obsidian
-opencode
-opencode-ai
+codeforge
+codeforge-ai
 Paru
 pnpm
 ripgrep
@@ -152,15 +152,15 @@ OAuth
 Ollama integration docs
 OpenAI's Data Policies
 OpenChamber
-OpenCode
-OpenCode config
-OpenCode Config
-OpenCode TUI with the opencode theme
-OpenCode Web - Active Session
-OpenCode Web - New Session
-OpenCode Web - See Servers
-OpenCode Zen
-OpenCode-Obsidian
+CodeForge
+CodeForge config
+CodeForge Config
+CodeForge TUI with the codeforge theme
+CodeForge Web - Active Session
+CodeForge Web - New Session
+CodeForge Web - See Servers
+CodeForge Zen
+CodeForge-Obsidian
 OpenRouter dashboard
 OpenWork
 OVHcloud panel
@@ -301,7 +301,7 @@ NoeFabris
 OpenAI
 OpenAPI
 OpenChamber
-OpenCode
+CodeForge
 OpenRouter
 OpenTUI
 OpenWork
@@ -325,69 +325,69 @@ xAI
 ZenMux
 ```
 
-## OpenCode CLI commands (as shown in docs)
+## CodeForge CLI commands (as shown in docs)
 
 ```text
-opencode
-opencode [project]
-opencode /path/to/project
-opencode acp
-opencode agent [command]
-opencode agent create
-opencode agent list
-opencode attach [url]
-opencode attach http://10.20.30.40:4096
-opencode attach http://localhost:4096
-opencode auth [command]
-opencode auth list
-opencode auth login
-opencode auth logout
-opencode auth ls
-opencode export [sessionID]
-opencode github [command]
-opencode github install
-opencode github run
-opencode import <file>
-opencode import https://opncd.ai/s/abc123
-opencode import session.json
-opencode mcp [command]
-opencode mcp add
-opencode mcp auth [name]
-opencode mcp auth list
-opencode mcp auth ls
-opencode mcp auth my-oauth-server
-opencode mcp auth sentry
-opencode mcp debug <name>
-opencode mcp debug my-oauth-server
-opencode mcp list
-opencode mcp logout [name]
-opencode mcp logout my-oauth-server
-opencode mcp ls
-opencode models --refresh
-opencode models [provider]
-opencode models anthropic
-opencode run [message..]
-opencode run Explain the use of context in Go
-opencode serve
-opencode serve --cors http://localhost:5173 --cors https://app.example.com
-opencode serve --hostname 0.0.0.0 --port 4096
-opencode serve [--port <number>] [--hostname <string>] [--cors <origin>]
-opencode session [command]
-opencode session list
-opencode session delete <sessionID>
-opencode stats
-opencode uninstall
-opencode upgrade
-opencode upgrade [target]
-opencode upgrade v0.1.48
-opencode web
-opencode web --cors https://example.com
-opencode web --hostname 0.0.0.0
-opencode web --mdns
-opencode web --mdns --mdns-domain myproject.local
-opencode web --port 4096
-opencode web --port 4096 --hostname 0.0.0.0
-opencode.server.close()
+codeforge
+codeforge [project]
+codeforge /path/to/project
+codeforge acp
+codeforge agent [command]
+codeforge agent create
+codeforge agent list
+codeforge attach [url]
+codeforge attach http://10.20.30.40:4096
+codeforge attach http://localhost:4096
+codeforge auth [command]
+codeforge auth list
+codeforge auth login
+codeforge auth logout
+codeforge auth ls
+codeforge export [sessionID]
+codeforge github [command]
+codeforge github install
+codeforge github run
+codeforge import <file>
+codeforge import https://opncd.ai/s/abc123
+codeforge import session.json
+codeforge mcp [command]
+codeforge mcp add
+codeforge mcp auth [name]
+codeforge mcp auth list
+codeforge mcp auth ls
+codeforge mcp auth my-oauth-server
+codeforge mcp auth sentry
+codeforge mcp debug <name>
+codeforge mcp debug my-oauth-server
+codeforge mcp list
+codeforge mcp logout [name]
+codeforge mcp logout my-oauth-server
+codeforge mcp ls
+codeforge models --refresh
+codeforge models [provider]
+codeforge models anthropic
+codeforge run [message..]
+codeforge run Explain the use of context in Go
+codeforge serve
+codeforge serve --cors http://localhost:5173 --cors https://app.example.com
+codeforge serve --hostname 0.0.0.0 --port 4096
+codeforge serve [--port <number>] [--hostname <string>] [--cors <origin>]
+codeforge session [command]
+codeforge session list
+codeforge session delete <sessionID>
+codeforge stats
+codeforge uninstall
+codeforge upgrade
+codeforge upgrade [target]
+codeforge upgrade v0.1.48
+codeforge web
+codeforge web --cors https://example.com
+codeforge web --hostname 0.0.0.0
+codeforge web --mdns
+codeforge web --mdns --mdns-domain myproject.local
+codeforge web --port 4096
+codeforge web --port 4096 --hostname 0.0.0.0
+codeforge.server.close()
 ```
 
 ## Slash commands and routes
@@ -428,7 +428,7 @@ opencode.server.close()
 /mnt/d/
 /models
 /oc
-/opencode
+/codeforge
 /path
 /project
 /project/current
@@ -636,8 +636,8 @@ XDG_CONFIG_HOME
 ```text
 ../../../config.mjs
 @astrojs/starlight/components
-@opencode-ai/plugin
-@opencode-ai/sdk
+@codeforge-ai/plugin
+@codeforge-ai/sdk
 path
 shescape
 zod
@@ -650,77 +650,77 @@ zod
 @ai-sdk/openai-compatible
 @File#L37-42
 @modelcontextprotocol/server-everything
-@opencode
+@codeforge
 ```
 
 ## GitHub owner/repo slugs referenced in docs
 
 ```text
-24601/opencode-zellij-namer
-angristan/opencode-wakatime
-anomalyco/opencode
-apps/opencode-agent
-athal7/opencode-devcontainers
-awesome-opencode/awesome-opencode
+24601/codeforge-zellij-namer
+angristan/codeforge-wakatime
+YOUR_ORG/codeforge
+apps/codeforge-agent
+athal7/codeforge-devcontainers
+awesome-codeforge/awesome-codeforge
 backnotprop/plannotator
-ben-vargas/ai-sdk-provider-opencode-sdk
+ben-vargas/ai-sdk-provider-codeforge-sdk
 btriapitsyn/openchamber
 BurntSushi/ripgrep
 Cluster444/agentic
-code-yeongyu/oh-my-opencode
-darrenhinde/opencode-agents
-different-ai/opencode-scheduler
+code-yeongyu/oh-my-codeforge
+darrenhinde/codeforge-agents
+different-ai/codeforge-scheduler
 different-ai/openwork
 features/copilot
 folke/tokyonight.nvim
-franlol/opencode-md-table-formatter
+franlol/codeforge-md-table-formatter
 ggml-org/llama.cpp
-ghoulr/opencode-websearch-cited.git
-H2Shami/opencode-helicone-session
+ghoulr/codeforge-websearch-cited.git
+H2Shami/codeforge-helicone-session
 hosenur/portal
 jamesmurdza/daytona
-jenslys/opencode-gemini-auth
-JRedeker/opencode-morph-fast-apply
-JRedeker/opencode-shell-strategy
+jenslys/codeforge-gemini-auth
+JRedeker/codeforge-morph-fast-apply
+JRedeker/codeforge-shell-strategy
 kdcokenny/ocx
-kdcokenny/opencode-background-agents
-kdcokenny/opencode-notify
-kdcokenny/opencode-workspace
-kdcokenny/opencode-worktree
+kdcokenny/codeforge-background-agents
+kdcokenny/codeforge-notify
+kdcokenny/codeforge-workspace
+kdcokenny/codeforge-worktree
 login/device
-mohak34/opencode-notifier
+mohak34/codeforge-notifier
 morhetz/gruvbox
-mtymek/opencode-obsidian
+mtymek/codeforge-obsidian
 NeuralNomadsAI/CodeNomad
-nick-vi/opencode-type-inject
-NickvanDyke/opencode.nvim
-NoeFabris/opencode-antigravity-auth
+nick-vi/codeforge-type-inject
+NickvanDyke/codeforge.nvim
+NoeFabris/codeforge-antigravity-auth
 nordtheme/nord
-numman-ali/opencode-openai-codex-auth
+numman-ali/codeforge-openai-codex-auth
 olimorris/codecompanion.nvim
-panta82/opencode-notificator
+panta82/codeforge-notificator
 rebelot/kanagawa.nvim
 remorses/kimaki
 sainnhe/everforest
-shekohex/opencode-google-antigravity-auth
-shekohex/opencode-pty.git
+shekohex/codeforge-google-antigravity-auth
+shekohex/codeforge-pty.git
 spoons-and-mirrors/subtask2
-sudo-tee/opencode.nvim
-supermemoryai/opencode-supermemory
-Tarquinen/opencode-dynamic-context-pruning
+sudo-tee/codeforge.nvim
+supermemoryai/codeforge-supermemory
+Tarquinen/codeforge-dynamic-context-pruning
 Th3Whit3Wolf/one-nvim
 upstash/context7
 vtemian/micode
 vtemian/octto
 yetone/avante.nvim
-zenobi-us/opencode-plugin-template
-zenobi-us/opencode-skillful
+zenobi-us/codeforge-plugin-template
+zenobi-us/codeforge-skillful
 ```
 
 ## Paths, filenames, globs, and URLs
 
 ```text
-./.opencode/themes/*.json
+./.codeforge/themes/*.json
 ./<project-slug>/storage/
 ./config/#custom-directory
 ./global/storage/
@@ -732,68 +732,68 @@ zenobi-us/opencode-skillful
 .claude/skills/*/SKILL.md
 .claude/skills/<name>/SKILL.md
 .env
-.github/workflows/opencode.yml
+.github/workflows/codeforge.yml
 .gitignore
 .gitlab-ci.yml
 .ignore
 .NET SDK
 .npmrc
 .ocamlformat
-.opencode
-.opencode/
-.opencode/agents/
-.opencode/commands/
-.opencode/commands/test.md
-.opencode/modes/
-.opencode/plans/*.md
-.opencode/plugins/
-.opencode/skills/<name>/SKILL.md
-.opencode/skills/git-release/SKILL.md
-.opencode/tools/
-.well-known/opencode
+.codeforge
+.codeforge/
+.codeforge/agents/
+.codeforge/commands/
+.codeforge/commands/test.md
+.codeforge/modes/
+.codeforge/plans/*.md
+.codeforge/plugins/
+.codeforge/skills/<name>/SKILL.md
+.codeforge/skills/git-release/SKILL.md
+.codeforge/tools/
+.well-known/codeforge
 { type: "raw" \| "patch", content: string }
 {file:path/to/file}
 **/*.js
 %USERPROFILE%/intelephense/license.txt
-%USERPROFILE%\.cache\opencode
-%USERPROFILE%\.config\opencode\opencode.jsonc
-%USERPROFILE%\.config\opencode\plugins
-%USERPROFILE%\.local\share\opencode
-%USERPROFILE%\.local\share\opencode\log
-<project-root>/.opencode/themes/*.json
+%USERPROFILE%\.cache\codeforge
+%USERPROFILE%\.config\codeforge\codeforge.jsonc
+%USERPROFILE%\.config\codeforge\plugins
+%USERPROFILE%\.local\share\codeforge
+%USERPROFILE%\.local\share\codeforge\log
+<project-root>/.codeforge/themes/*.json
 <providerId>/<modelId>
-<your-project>/.opencode/plugins/
+<your-project>/.codeforge/plugins/
 ~
 ~/...
 ~/.agents/skills/*/SKILL.md
 ~/.agents/skills/<name>/SKILL.md
 ~/.aws/credentials
 ~/.bashrc
-~/.cache/opencode
-~/.cache/opencode/node_modules/
+~/.cache/codeforge
+~/.cache/codeforge/node_modules/
 ~/.claude/CLAUDE.md
 ~/.claude/skills/
 ~/.claude/skills/*/SKILL.md
 ~/.claude/skills/<name>/SKILL.md
-~/.config/opencode
-~/.config/opencode/AGENTS.md
-~/.config/opencode/agents/
-~/.config/opencode/commands/
-~/.config/opencode/modes/
-~/.config/opencode/opencode.json
-~/.config/opencode/opencode.jsonc
-~/.config/opencode/plugins/
-~/.config/opencode/skills/*/SKILL.md
-~/.config/opencode/skills/<name>/SKILL.md
-~/.config/opencode/themes/*.json
-~/.config/opencode/tools/
+~/.config/codeforge
+~/.config/codeforge/AGENTS.md
+~/.config/codeforge/agents/
+~/.config/codeforge/commands/
+~/.config/codeforge/modes/
+~/.config/codeforge/codeforge.json
+~/.config/codeforge/codeforge.jsonc
+~/.config/codeforge/plugins/
+~/.config/codeforge/skills/*/SKILL.md
+~/.config/codeforge/skills/<name>/SKILL.md
+~/.config/codeforge/themes/*.json
+~/.config/codeforge/tools/
 ~/.config/zed/settings.json
 ~/.local/share
-~/.local/share/opencode/
-~/.local/share/opencode/auth.json
-~/.local/share/opencode/log/
-~/.local/share/opencode/mcp-auth.json
-~/.local/share/opencode/opencode.jsonc
+~/.local/share/codeforge/
+~/.local/share/codeforge/auth.json
+~/.local/share/codeforge/log/
+~/.local/share/codeforge/mcp-auth.json
+~/.local/share/codeforge/codeforge.jsonc
 ~/.npmrc
 ~/.zshrc
 ~/code/
@@ -803,7 +803,7 @@ zenobi-us/opencode-skillful
 ${config.github}/blob/dev/packages/sdk/js/src/gen/types.gen.ts
 $HOME/intelephense/license.txt
 $HOME/projects/*
-$XDG_CONFIG_HOME/opencode/themes/*.json
+$XDG_CONFIG_HOME/codeforge/themes/*.json
 agent/
 agents/
 build/
@@ -816,11 +816,11 @@ http://localhost:4096
 http://localhost:4096/doc
 https://app.example.com
 https://AZURE_COGNITIVE_SERVICES_RESOURCE_NAME.cognitiveservices.azure.com/
-https://opencode.ai/zen/v1/chat/completions
-https://opencode.ai/zen/v1/messages
-https://opencode.ai/zen/v1/models/gemini-3-flash
-https://opencode.ai/zen/v1/models/gemini-3-pro
-https://opencode.ai/zen/v1/responses
+https://YOUR_DOMAIN.ai/zen/v1/chat/completions
+https://YOUR_DOMAIN.ai/zen/v1/messages
+https://YOUR_DOMAIN.ai/zen/v1/models/gemini-3-flash
+https://YOUR_DOMAIN.ai/zen/v1/models/gemini-3-pro
+https://YOUR_DOMAIN.ai/zen/v1/responses
 https://RESOURCE_NAME.openai.azure.com/
 laravel/pint
 log/
@@ -828,11 +828,11 @@ model: "anthropic/claude-sonnet-4-5"
 modes/
 node_modules/
 openai/gpt-4.1
-opencode.ai/config.json
-opencode/<model-id>
-opencode/gpt-5.1-codex
-opencode/gpt-5.2-codex
-opencode/kimi-k2
+codeforge.ai/config.json
+codeforge/<model-id>
+codeforge/gpt-5.1-codex
+codeforge/gpt-5.2-codex
+codeforge/kimi-k2
 openrouter/google/gemini-2.5-flash
 opncd.ai/s/<share-id>
 packages/*/AGENTS.md
@@ -841,7 +841,7 @@ project/
 provider_id/model_id
 provider/model
 provider/model-id
-rm -rf ~/.cache/opencode
+rm -rf ~/.cache/codeforge
 skills/
 skills/*/SKILL.md
 src/**/*.ts
@@ -893,8 +893,8 @@ gitlab/duo-chat-haiku-4-5
 lmstudio/google/gemma-3n-e4b
 openai/gpt-4.1
 openai/gpt-5
-opencode/gpt-5.1-codex
-opencode/gpt-5.2-codex
-opencode/kimi-k2
+codeforge/gpt-5.1-codex
+codeforge/gpt-5.2-codex
+codeforge/kimi-k2
 openrouter/google/gemini-2.5-flash
 ```

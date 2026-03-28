@@ -27,7 +27,7 @@ const channel = (() => {
 })()
 
 const getBase = (): Configuration => ({
-  artifactName: "opencode-electron-${os}-${arch}.${ext}",
+  artifactName: "codeforge-electron-${os}-${arch}.${ext}",
   directories: {
     output: "dist",
     buildResources: "resources",
@@ -37,7 +37,7 @@ const getBase = (): Configuration => ({
     {
       from: "resources/",
       to: "",
-      filter: ["opencode-cli*"],
+      filter: ["codeforge-cli*"],
     },
     {
       from: "native/",
@@ -59,8 +59,8 @@ const getBase = (): Configuration => ({
     sign: true,
   },
   protocols: {
-    name: "OpenCode",
-    schemes: ["opencode"],
+    name: "CodeForge",
+    schemes: ["codeforge"],
   },
   win: {
     icon: `resources/icons/icon.ico`,
@@ -89,29 +89,29 @@ function getConfig() {
     case "dev": {
       return {
         ...base,
-        appId: "ai.opencode.desktop.dev",
-        productName: "OpenCode Dev",
-        rpm: { packageName: "opencode-dev" },
+        appId: "ai.codeforge.desktop.dev",
+        productName: "CodeForge Dev",
+        rpm: { packageName: "codeforge-dev" },
       }
     }
     case "beta": {
       return {
         ...base,
-        appId: "ai.opencode.desktop.beta",
-        productName: "OpenCode Beta",
-        protocols: { name: "OpenCode Beta", schemes: ["opencode"] },
-        publish: { provider: "github", owner: "anomalyco", repo: "opencode-beta", channel: "latest" },
-        rpm: { packageName: "opencode-beta" },
+        appId: "ai.codeforge.desktop.beta",
+        productName: "CodeForge Beta",
+        protocols: { name: "CodeForge Beta", schemes: ["codeforge"] },
+        publish: { provider: "github", owner: "anomalyco", repo: "codeforge-beta", channel: "latest" },
+        rpm: { packageName: "codeforge-beta" },
       }
     }
     case "prod": {
       return {
         ...base,
-        appId: "ai.opencode.desktop",
-        productName: "OpenCode",
-        protocols: { name: "OpenCode", schemes: ["opencode"] },
-        publish: { provider: "github", owner: "anomalyco", repo: "opencode", channel: "latest" },
-        rpm: { packageName: "opencode" },
+        appId: "ai.codeforge.desktop",
+        productName: "CodeForge",
+        protocols: { name: "CodeForge", schemes: ["codeforge"] },
+        publish: { provider: "github", owner: "anomalyco", repo: "codeforge", channel: "latest" },
+        rpm: { packageName: "codeforge" },
       }
     }
   }

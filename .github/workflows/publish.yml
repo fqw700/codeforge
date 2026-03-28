@@ -33,7 +33,7 @@ permissions:
 jobs:
   version:
     runs-on: blacksmith-4vcpu-ubuntu-2404
-    if: github.repository == 'anomalyco/opencode'
+    if: github.repository == 'YOUR_ORG/codeforge'
     steps:
       - uses: actions/checkout@v3
         with:
@@ -45,12 +45,12 @@ jobs:
         id: committer
         uses: ./.github/actions/setup-git-committer
         with:
-          opencode-app-id: ${{ vars.OPENCODE_APP_ID }}
-          opencode-app-secret: ${{ secrets.OPENCODE_APP_SECRET }}
+          codeforge-app-id: ${{ vars.OPENCODE_APP_ID }}
+          codeforge-app-secret: ${{ secrets.OPENCODE_APP_SECRET }}
 
-      - name: Install OpenCode
+      - name: Install CodeForge
         if: inputs.bump || inputs.version
-        run: bun i -g opencode-ai
+        run: bun i -g codeforge-ai
 
       - id: version
         run: |
@@ -60,7 +60,7 @@ jobs:
           OPENCODE_BUMP: ${{ inputs.bump }}
           OPENCODE_VERSION: ${{ inputs.version }}
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
-          GH_REPO: ${{ (github.ref_name == 'beta' && 'anomalyco/opencode-beta') || github.repository }}
+          GH_REPO: ${{ (github.ref_name == 'beta' && 'YOUR_ORG/codeforge-beta') || github.repository }}
     outputs:
       version: ${{ steps.version.outputs.version }}
       release: ${{ steps.version.outputs.release }}
@@ -70,7 +70,7 @@ jobs:
   build-cli:
     needs: version
     runs-on: blacksmith-4vcpu-ubuntu-2404
-    if: github.repository == 'anomalyco/opencode'
+    if: github.repository == 'YOUR_ORG/codeforge'
     steps:
       - uses: actions/checkout@v3
         with:
@@ -82,13 +82,13 @@ jobs:
         id: committer
         uses: ./.github/actions/setup-git-committer
         with:
-          opencode-app-id: ${{ vars.OPENCODE_APP_ID }}
-          opencode-app-secret: ${{ secrets.OPENCODE_APP_SECRET }}
+          codeforge-app-id: ${{ vars.OPENCODE_APP_ID }}
+          codeforge-app-secret: ${{ secrets.OPENCODE_APP_SECRET }}
 
       - name: Build
         id: build
         run: |
-          ./packages/opencode/script/build.ts
+          ./packages/codeforge/script/build.ts
         env:
           OPENCODE_VERSION: ${{ needs.version.outputs.version }}
           OPENCODE_RELEASE: ${{ needs.version.outputs.release }}
@@ -97,15 +97,15 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: opencode-cli
+          name: codeforge-cli
           path: |
-            packages/opencode/dist/opencode-darwin*
-            packages/opencode/dist/opencode-linux*
+            packages/codeforge/dist/codeforge-darwin*
+            packages/codeforge/dist/codeforge-linux*
 
       - uses: actions/upload-artifact@v4
         with:
-          name: opencode-cli-windows
-          path: packages/opencode/dist/opencode-windows*
+          name: codeforge-cli-windows
+          path: packages/codeforge/dist/codeforge-windows*
     outputs:
       version: ${{ needs.version.outputs.version }}
 
@@ -114,7 +114,7 @@ jobs:
       - build-cli
       - version
     runs-on: blacksmith-4vcpu-windows-2025
-    if: github.repository == 'anomalyco/opencode'
+    if: github.repository == 'YOUR_ORG/codeforge'
     env:
       AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
@@ -127,15 +127,15 @@ jobs:
 
       - uses: actions/download-artifact@v4
         with:
-          name: opencode-cli-windows
-          path: packages/opencode/dist
+          name: codeforge-cli-windows
+          path: packages/codeforge/dist
 
       - name: Setup git committer
         id: committer
         uses: ./.github/actions/setup-git-committer
         with:
-          opencode-app-id: ${{ vars.OPENCODE_APP_ID }}
-          opencode-app-secret: ${{ secrets.OPENCODE_APP_SECRET }}
+          codeforge-app-id: ${{ vars.OPENCODE_APP_ID }}
+          codeforge-app-secret: ${{ secrets.OPENCODE_APP_SECRET }}
 
       - name: Azure login
         uses: azure/login@v2
@@ -150,9 +150,9 @@ jobs:
           signing-account-name: ${{ env.AZURE_TRUSTED_SIGNING_ACCOUNT_NAME }}
           certificate-profile-name: ${{ env.AZURE_TRUSTED_SIGNING_CERTIFICATE_PROFILE }}
           files: |
-            ${{ github.workspace }}\packages\opencode\dist\opencode-windows-arm64\bin\opencode.exe
-            ${{ github.workspace }}\packages\opencode\dist\opencode-windows-x64\bin\opencode.exe
-            ${{ github.workspace }}\packages\opencode\dist\opencode-windows-x64-baseline\bin\opencode.exe
+            ${{ github.workspace }}\packages\codeforge\dist\codeforge-windows-arm64\bin\codeforge.exe
+            ${{ github.workspace }}\packages\codeforge\dist\codeforge-windows-x64\bin\codeforge.exe
+            ${{ github.workspace }}\packages\codeforge\dist\codeforge-windows-x64-baseline\bin\codeforge.exe
           exclude-environment-credential: true
           exclude-workload-identity-credential: true
           exclude-managed-identity-credential: true
@@ -168,9 +168,9 @@ jobs:
         shell: pwsh
         run: |
           $files = @(
-            "${{ github.workspace }}\packages\opencode\dist\opencode-windows-arm64\bin\opencode.exe",
-            "${{ github.workspace }}\packages\opencode\dist\opencode-windows-x64\bin\opencode.exe",
-            "${{ github.workspace }}\packages\opencode\dist\opencode-windows-x64-baseline\bin\opencode.exe"
+            "${{ github.workspace }}\packages\codeforge\dist\codeforge-windows-arm64\bin\codeforge.exe",
+            "${{ github.workspace }}\packages\codeforge\dist\codeforge-windows-x64\bin\codeforge.exe",
+            "${{ github.workspace }}\packages\codeforge\dist\codeforge-windows-x64-baseline\bin\codeforge.exe"
           )
 
           foreach ($file in $files) {
@@ -181,12 +181,12 @@ jobs:
           }
 
       - name: Repack Windows CLI archives
-        working-directory: packages/opencode/dist
+        working-directory: packages/codeforge/dist
         shell: pwsh
         run: |
-          Compress-Archive -Path "opencode-windows-arm64\bin\*" -DestinationPath "opencode-windows-arm64.zip" -Force
-          Compress-Archive -Path "opencode-windows-x64\bin\*" -DestinationPath "opencode-windows-x64.zip" -Force
-          Compress-Archive -Path "opencode-windows-x64-baseline\bin\*" -DestinationPath "opencode-windows-x64-baseline.zip" -Force
+          Compress-Archive -Path "codeforge-windows-arm64\bin\*" -DestinationPath "codeforge-windows-arm64.zip" -Force
+          Compress-Archive -Path "codeforge-windows-x64\bin\*" -DestinationPath "codeforge-windows-x64.zip" -Force
+          Compress-Archive -Path "codeforge-windows-x64-baseline\bin\*" -DestinationPath "codeforge-windows-x64-baseline.zip" -Force
 
       - name: Upload signed Windows CLI release assets
         if: needs.version.outputs.release != ''
@@ -195,19 +195,19 @@ jobs:
           GH_TOKEN: ${{ steps.committer.outputs.token }}
         run: |
           gh release upload "v${{ needs.version.outputs.version }}" `
-            "${{ github.workspace }}\packages\opencode\dist\opencode-windows-arm64.zip" `
-            "${{ github.workspace }}\packages\opencode\dist\opencode-windows-x64.zip" `
-            "${{ github.workspace }}\packages\opencode\dist\opencode-windows-x64-baseline.zip" `
+            "${{ github.workspace }}\packages\codeforge\dist\codeforge-windows-arm64.zip" `
+            "${{ github.workspace }}\packages\codeforge\dist\codeforge-windows-x64.zip" `
+            "${{ github.workspace }}\packages\codeforge\dist\codeforge-windows-x64-baseline.zip" `
             --clobber `
             --repo "${{ needs.version.outputs.repo }}"
 
       - uses: actions/upload-artifact@v4
         with:
-          name: opencode-cli-signed-windows
+          name: codeforge-cli-signed-windows
           path: |
-            packages/opencode/dist/opencode-windows-arm64
-            packages/opencode/dist/opencode-windows-x64
-            packages/opencode/dist/opencode-windows-x64-baseline
+            packages/codeforge/dist/codeforge-windows-arm64
+            packages/codeforge/dist/codeforge-windows-x64
+            packages/codeforge/dist/codeforge-windows-x64-baseline
 
   build-tauri:
     needs:
@@ -312,7 +312,7 @@ jobs:
         env:
           OPENCODE_VERSION: ${{ needs.version.outputs.version }}
           GITHUB_TOKEN: ${{ steps.committer.outputs.token }}
-          OPENCODE_CLI_ARTIFACT: ${{ (runner.os == 'Windows' && 'opencode-cli-windows') || 'opencode-cli' }}
+          OPENCODE_CLI_ARTIFACT: ${{ (runner.os == 'Windows' && 'codeforge-cli-windows') || 'codeforge-cli' }}
           RUST_TARGET: ${{ matrix.settings.target }}
           GH_TOKEN: ${{ github.token }}
           GITHUB_RUN_ID: ${{ github.run_id }}
@@ -339,8 +339,8 @@ jobs:
         id: committer
         uses: ./.github/actions/setup-git-committer
         with:
-          opencode-app-id: ${{ vars.OPENCODE_APP_ID }}
-          opencode-app-secret: ${{ secrets.OPENCODE_APP_SECRET }}
+          codeforge-app-id: ${{ vars.OPENCODE_APP_ID }}
+          codeforge-app-secret: ${{ secrets.OPENCODE_APP_SECRET }}
 
       - name: Build and upload artifacts
         uses: tauri-apps/tauri-action@390cbe447412ced1303d35abe75287949e43437a
@@ -354,8 +354,8 @@ jobs:
           releaseId: ${{ needs.version.outputs.release }}
           tagName: ${{ needs.version.outputs.tag }}
           releaseDraft: true
-          releaseAssetNamePattern: opencode-desktop-[platform]-[arch][ext]
-          repo: ${{ (github.ref_name == 'beta' && 'opencode-beta') || '' }}
+          releaseAssetNamePattern: codeforge-desktop-[platform]-[arch][ext]
+          repo: ${{ (github.ref_name == 'beta' && 'codeforge-beta') || '' }}
           releaseCommitish: ${{ github.sha }}
         env:
           GITHUB_TOKEN: ${{ steps.committer.outputs.token }}
@@ -374,7 +374,7 @@ jobs:
         shell: pwsh
         run: |
           $files = @(
-            "${{ github.workspace }}\packages\desktop\src-tauri\sidecars\opencode-cli-${{ matrix.settings.target }}.exe"
+            "${{ github.workspace }}\packages\desktop\src-tauri\sidecars\codeforge-cli-${{ matrix.settings.target }}.exe"
           )
           $files += Get-ChildItem "${{ github.workspace }}\packages\desktop\src-tauri\target\${{ matrix.settings.target }}\release\bundle\nsis\*.exe" | Select-Object -ExpandProperty FullName
 
@@ -471,8 +471,8 @@ jobs:
         id: committer
         uses: ./.github/actions/setup-git-committer
         with:
-          opencode-app-id: ${{ vars.OPENCODE_APP_ID }}
-          opencode-app-secret: ${{ secrets.OPENCODE_APP_SECRET }}
+          codeforge-app-id: ${{ vars.OPENCODE_APP_ID }}
+          codeforge-app-secret: ${{ secrets.OPENCODE_APP_SECRET }}
 
       - name: Prepare
         run: bun ./scripts/prepare.ts
@@ -480,7 +480,7 @@ jobs:
         env:
           OPENCODE_VERSION: ${{ needs.version.outputs.version }}
           OPENCODE_CHANNEL: ${{ (github.ref_name == 'beta' && 'beta') || 'prod' }}
-          OPENCODE_CLI_ARTIFACT: ${{ (runner.os == 'Windows' && 'opencode-cli-windows') || 'opencode-cli' }}
+          OPENCODE_CLI_ARTIFACT: ${{ (runner.os == 'Windows' && 'codeforge-cli-windows') || 'codeforge-cli' }}
           RUST_TARGET: ${{ matrix.settings.target }}
           GH_TOKEN: ${{ github.token }}
           GITHUB_RUN_ID: ${{ github.run_id }}
@@ -520,7 +520,7 @@ jobs:
           $files = @()
           $files += Get-ChildItem "${{ github.workspace }}\packages\desktop-electron\dist\*.exe" | Select-Object -ExpandProperty FullName
           $files += Get-ChildItem "${{ github.workspace }}\packages\desktop-electron\dist\*unpacked\*.exe" | Select-Object -ExpandProperty FullName
-          $files += Get-ChildItem "${{ github.workspace }}\packages\desktop-electron\dist\*unpacked\resources\opencode-cli.exe" -ErrorAction SilentlyContinue | Select-Object -ExpandProperty FullName
+          $files += Get-ChildItem "${{ github.workspace }}\packages\desktop-electron\dist\*unpacked\resources\codeforge-cli.exe" -ErrorAction SilentlyContinue | Select-Object -ExpandProperty FullName
 
           foreach ($file in $files | Select-Object -Unique) {
             $sig = Get-AuthenticodeSignature $file
@@ -531,7 +531,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: opencode-electron-${{ matrix.settings.target }}
+          name: codeforge-electron-${{ matrix.settings.target }}
           path: packages/desktop-electron/dist/*
 
       - uses: actions/upload-artifact@v4
@@ -575,23 +575,23 @@ jobs:
         id: committer
         uses: ./.github/actions/setup-git-committer
         with:
-          opencode-app-id: ${{ vars.OPENCODE_APP_ID }}
-          opencode-app-secret: ${{ secrets.OPENCODE_APP_SECRET }}
+          codeforge-app-id: ${{ vars.OPENCODE_APP_ID }}
+          codeforge-app-secret: ${{ secrets.OPENCODE_APP_SECRET }}
 
       - uses: actions/download-artifact@v4
         with:
-          name: opencode-cli
-          path: packages/opencode/dist
+          name: codeforge-cli
+          path: packages/codeforge/dist
 
       - uses: actions/download-artifact@v4
         with:
-          name: opencode-cli-windows
-          path: packages/opencode/dist
+          name: codeforge-cli-windows
+          path: packages/codeforge/dist
 
       - uses: actions/download-artifact@v4
         with:
-          name: opencode-cli-signed-windows
-          path: packages/opencode/dist
+          name: codeforge-cli-signed-windows
+          path: packages/codeforge/dist
 
       - uses: actions/download-artifact@v4
         if: needs.version.outputs.release
@@ -614,8 +614,8 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.AUR_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          git config --global user.email "opencode@sst.dev"
-          git config --global user.name "opencode"
+          git config --global user.email "codeforge@sst.dev"
+          git config --global user.name "codeforge"
           ssh-keyscan -H aur.archlinux.org >> ~/.ssh/known_hosts || true
 
       - run: ./script/publish.ts

@@ -11,8 +11,8 @@ import treeKill from "tree-kill"
 import { WSL_ENABLED_KEY } from "./constants"
 import { store } from "./store"
 
-const CLI_INSTALL_DIR = ".opencode/bin"
-const CLI_BINARY_NAME = "opencode"
+const CLI_INSTALL_DIR = ".codeforge/bin"
+const CLI_BINARY_NAME = "codeforge"
 
 export type ServerConfig = {
   hostname?: string
@@ -44,8 +44,8 @@ const root = dirname(fileURLToPath(import.meta.url))
 export function getSidecarPath() {
   const suffix = process.platform === "win32" ? ".exe" : ""
   const path = app.isPackaged
-    ? join(process.resourcesPath, `opencode-cli${suffix}`)
-    : join(root, "../../resources", `opencode-cli${suffix}`)
+    ? join(process.resourcesPath, `codeforge-cli${suffix}`)
+    : join(root, "../../resources", `codeforge-cli${suffix}`)
   console.log(`[cli] Sidecar path resolved: ${path} (isPackaged: ${app.isPackaged})`)
   return path
 }
@@ -80,7 +80,7 @@ export async function installCli(): Promise<string> {
   const sidecar = getSidecarPath()
   const scriptPath = join(app.getAppPath(), "install")
   const script = readFileSync(scriptPath, "utf8")
-  const tempScript = join(tmpdir(), "opencode-install.sh")
+  const tempScript = join(tmpdir(), "codeforge-install.sh")
 
   writeFileSync(tempScript, script, "utf8")
   chmodSync(tempScript, 0o755)
@@ -123,7 +123,7 @@ export function syncCli() {
 export function serve(hostname: string, port: number, password: string) {
   const args = `--print-logs --log-level WARN serve --hostname ${hostname} --port ${port}`
   const env = {
-    OPENCODE_SERVER_USERNAME: "opencode",
+    OPENCODE_SERVER_USERNAME: "codeforge",
     OPENCODE_SERVER_PASSWORD: password,
   }
 
@@ -216,9 +216,9 @@ function buildCommand(args: string, env: Record<string, string>) {
     const version = app.getVersion()
     const script = [
       "set -e",
-      'BIN="$HOME/.opencode/bin/opencode"',
+      'BIN="$HOME/.codeforge/bin/codeforge"',
       'if [ ! -x "$BIN" ]; then',
-      `  curl -fsSL https://opencode.ai/install | bash -s -- --version ${shellEscape(version)} --no-modify-path`,
+      `  curl -fsSL https://YOUR_DOMAIN.ai/install | bash -s -- --version ${shellEscape(version)} --no-modify-path`,
       "fi",
       `${envPrefix(env)} exec "$BIN" ${args}`,
     ].join("\n")

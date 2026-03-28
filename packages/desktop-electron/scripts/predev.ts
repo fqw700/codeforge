@@ -8,10 +8,10 @@ const RUST_TARGET = Bun.env.RUST_TARGET
 
 const sidecarConfig = getCurrentSidecar(RUST_TARGET)
 
-const binaryPath = windowsify(`../opencode/dist/${sidecarConfig.ocBinary}/bin/opencode`)
+const binaryPath = windowsify(`../codeforge/dist/${sidecarConfig.ocBinary}/bin/codeforge`)
 
 await (sidecarConfig.ocBinary.includes("-baseline")
-  ? $`cd ../opencode && bun run build --single --baseline`
-  : $`cd ../opencode && bun run build --single`)
+  ? $`cd ../codeforge && bun run build --single --baseline`
+  : $`cd ../codeforge && bun run build --single`)
 
 await copyBinaryToSidecarFolder(binaryPath, RUST_TARGET)

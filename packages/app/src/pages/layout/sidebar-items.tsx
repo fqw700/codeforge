@@ -1,13 +1,13 @@
-import type { Message, Session, TextPart, UserMessage } from "@opencode-ai/sdk/v2/client"
-import { Avatar } from "@opencode-ai/ui/avatar"
-import { HoverCard } from "@opencode-ai/ui/hover-card"
-import { Icon } from "@opencode-ai/ui/icon"
-import { IconButton } from "@opencode-ai/ui/icon-button"
-import { MessageNav } from "@opencode-ai/ui/message-nav"
-import { Spinner } from "@opencode-ai/ui/spinner"
-import { Tooltip } from "@opencode-ai/ui/tooltip"
-import { base64Encode } from "@opencode-ai/util/encode"
-import { getFilename } from "@opencode-ai/util/path"
+import type { Message, Session, TextPart, UserMessage } from "@codeforge-ai/sdk/v2/client"
+import { Avatar } from "@codeforge-ai/ui/avatar"
+import { HoverCard } from "@codeforge-ai/ui/hover-card"
+import { Icon } from "@codeforge-ai/ui/icon"
+import { IconButton } from "@codeforge-ai/ui/icon-button"
+import { MessageNav } from "@codeforge-ai/ui/message-nav"
+import { Spinner } from "@codeforge-ai/ui/spinner"
+import { Tooltip } from "@codeforge-ai/ui/tooltip"
+import { base64Encode } from "@codeforge-ai/util/encode"
+import { getFilename } from "@codeforge-ai/util/path"
 import { A, useNavigate, useParams } from "@solidjs/router"
 import { type Accessor, createMemo, For, type JSX, Match, onCleanup, Show, Switch } from "solid-js"
 import { useGlobalSync } from "@/context/global-sync"
@@ -44,7 +44,7 @@ export const ProjectIcon = (props: { project: LocalProject; class?: string; noti
         <Avatar
           fallback={name()}
           src={
-            props.project.id === OPENCODE_PROJECT_ID ? "https://opencode.ai/favicon.svg" : props.project.icon?.override
+            props.project.id === OPENCODE_PROJECT_ID ? "https://YOUR_DOMAIN.ai/favicon.svg" : props.project.icon?.override
           }
           {...getAvatarColors(props.project.icon?.color)}
           class="size-full rounded"

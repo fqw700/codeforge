@@ -1,13 +1,13 @@
 import { Component, Show, createMemo, createResource, onMount, type JSX } from "solid-js"
 import { createStore } from "solid-js/store"
-import { Button } from "@opencode-ai/ui/button"
-import { Icon } from "@opencode-ai/ui/icon"
-import { Select } from "@opencode-ai/ui/select"
-import { Switch } from "@opencode-ai/ui/switch"
-import { TextField } from "@opencode-ai/ui/text-field"
-import { Tooltip } from "@opencode-ai/ui/tooltip"
-import { useTheme, type ColorScheme } from "@opencode-ai/ui/theme/context"
-import { showToast } from "@opencode-ai/ui/toast"
+import { Button } from "@codeforge-ai/ui/button"
+import { Icon } from "@codeforge-ai/ui/icon"
+import { Select } from "@codeforge-ai/ui/select"
+import { Switch } from "@codeforge-ai/ui/switch"
+import { TextField } from "@codeforge-ai/ui/text-field"
+import { Tooltip } from "@codeforge-ai/ui/tooltip"
+import { useTheme, type ColorScheme } from "@codeforge-ai/ui/theme/context"
+import { showToast } from "@codeforge-ai/ui/toast"
 import { useLanguage } from "@/context/language"
 import { usePlatform } from "@/context/platform"
 import {
@@ -296,7 +296,7 @@ export const SettingsGeneral: Component = () => {
           description={
             <>
               {language.t("settings.general.row.theme.description")}{" "}
-              <Link href="https://opencode.ai/docs/themes/">{language.t("common.learnMore")}</Link>
+              <Link href="https://YOUR_DOMAIN.ai/docs/themes/">{language.t("common.learnMore")}</Link>
             </>
           }
         >

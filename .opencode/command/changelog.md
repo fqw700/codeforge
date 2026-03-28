@@ -1,5 +1,5 @@
 ---
-model: opencode/kimi-k2.5
+model: codeforge/kimi-k2.5
 ---
 
 create UPCOMING_CHANGELOG.md

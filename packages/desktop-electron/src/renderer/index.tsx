@@ -13,7 +13,7 @@ import {
   PlatformProvider,
   ServerConnection,
   useCommand,
-} from "@opencode-ai/app"
+} from "@codeforge-ai/app"
 import type { AsyncStorage } from "@solid-primitives/storage"
 import { MemoryRouter } from "@solidjs/router"
 import { createEffect, createResource, onCleanup, onMount, Show } from "solid-js"
@@ -23,7 +23,7 @@ import { initI18n, t } from "./i18n"
 import { UPDATER_ENABLED } from "./updater"
 import { webviewZoom } from "./webview-zoom"
 import "./styles.css"
-import { useTheme } from "@opencode-ai/ui/theme"
+import { useTheme } from "@codeforge-ai/ui/theme"
 
 const root = document.getElementById("root")
 if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
@@ -32,7 +32,7 @@ if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
 
 void initI18n()
 
-const deepLinkEvent = "opencode:deep-link"
+const deepLinkEvent = "codeforge:deep-link"
 
 const emitDeepLinks = (urls: string[]) => {
   if (urls.length === 0) return
@@ -179,7 +179,7 @@ const createPlatform = (): Platform => {
 
       const notification = new Notification(title, {
         body: description ?? "",
-        icon: "https://opencode.ai/favicon-96x96-v3.png",
+        icon: "https://YOUR_DOMAIN.ai/favicon-96x96-v3.png",
       })
       notification.onclick = () => {
         void window.api.showWindow()
@@ -250,7 +250,7 @@ listenForDeepLinks()
 render(() => {
   const platform = createPlatform()
   const loadLocale = async () => {
-    const current = await platform.storage?.("opencode.global.dat").getItem("language")
+    const current = await platform.storage?.("codeforge.global.dat").getItem("language")
     const legacy = current ? undefined : await platform.storage?.().getItem("language.v1")
     const raw = current ?? legacy
     if (!raw) return

@@ -16,7 +16,7 @@ export function createMenu(deps: Deps) {
 
   const template: Electron.MenuItemConstructorOptions[] = [
     {
-      label: "OpenCode",
+      label: "CodeForge",
       submenu: [
         { role: "about" },
         {
@@ -101,18 +101,18 @@ export function createMenu(deps: Deps) {
     {
       label: "Help",
       submenu: [
-        { label: "OpenCode Documentation", click: () => shell.openExternal("https://opencode.ai/docs") },
-        { label: "Support Forum", click: () => shell.openExternal("https://discord.com/invite/opencode") },
+        { label: "CodeForge Documentation", click: () => shell.openExternal("https://YOUR_DOMAIN.ai/docs") },
+        { label: "Support Forum", click: () => shell.openExternal("https://discord.com/invite/codeforge") },
         { type: "separator" },
         { type: "separator" },
         {
           label: "Share Feedback",
           click: () =>
-            shell.openExternal("https://github.com/anomalyco/opencode/issues/new?template=feature_request.yml"),
+            shell.openExternal("https://github.com/YOUR_ORG/codeforge/issues/new?template=feature_request.yml"),
         },
         {
           label: "Report a Bug",
-          click: () => shell.openExternal("https://github.com/anomalyco/opencode/issues/new?template=bug_report.yml"),
+          click: () => shell.openExternal("https://github.com/YOUR_ORG/codeforge/issues/new?template=bug_report.yml"),
         },
       ],
     },

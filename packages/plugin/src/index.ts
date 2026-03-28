@@ -10,7 +10,7 @@ import type {
   Part,
   Auth,
   Config as SDKConfig,
-} from "@opencode-ai/sdk"
+} from "@codeforge-ai/sdk"
 
 import type { BunShell } from "./shell.js"
 import { type ToolDefinition } from "./tool.js"

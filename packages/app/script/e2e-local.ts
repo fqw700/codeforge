@@ -44,7 +44,7 @@ async function waitForHealth(url: string) {
 
 const appDir = process.cwd()
 const repoDir = path.resolve(appDir, "../..")
-const opencodeDir = path.join(repoDir, "packages", "opencode")
+const codeforgeDir = path.join(repoDir, "packages", "codeforge")
 
 const extraArgs = (() => {
   const args = process.argv.slice(2)
@@ -54,7 +54,7 @@ const extraArgs = (() => {
 
 const [serverPort, webPort] = await Promise.all([freePort(), freePort()])
 
-const sandbox = await fs.mkdtemp(path.join(os.tmpdir(), "opencode-e2e-"))
+const sandbox = await fs.mkdtemp(path.join(os.tmpdir(), "codeforge-e2e-"))
 const keepSandbox = process.env.OPENCODE_E2E_KEEP_SANDBOX === "1"
 
 const serverEnv = {
@@ -71,7 +71,7 @@ const serverEnv = {
   OPENCODE_E2E_PROJECT_DIR: repoDir,
   OPENCODE_E2E_SESSION_TITLE: "E2E Session",
   OPENCODE_E2E_MESSAGE: "Seeded for UI e2e",
-  OPENCODE_E2E_MODEL: "opencode/gpt-5-nano",
+  OPENCODE_E2E_MODEL: "codeforge/gpt-5-nano",
   OPENCODE_CLIENT: "app",
   OPENCODE_STRICT_CONFIG_DEPS: "true",
 } satisfies Record<string, string>
@@ -133,7 +133,7 @@ let code = 1
 
 try {
   seed = Bun.spawn(["bun", "script/seed-e2e.ts"], {
-    cwd: opencodeDir,
+    cwd: codeforgeDir,
     env: serverEnv,
     stdout: "inherit",
     stderr: "inherit",
@@ -148,18 +148,18 @@ try {
     process.env.OPENCODE = "1"
     process.env.OPENCODE_PID = String(process.pid)
 
-    const log = await import("../../opencode/src/util/log")
-    const install = await import("../../opencode/src/installation")
+    const log = await import("../../codeforge/src/util/log")
+    const install = await import("../../codeforge/src/installation")
     await log.Log.init({
       print: true,
       dev: install.Installation.isLocal(),
       level: "WARN",
     })
 
-    const servermod = await import("../../opencode/src/server/server")
-    inst = await import("../../opencode/src/project/instance")
+    const servermod = await import("../../codeforge/src/server/server")
+    inst = await import("../../codeforge/src/project/instance")
     server = servermod.Server.listen({ port: serverPort, hostname: "127.0.0.1" })
-    console.log(`opencode server listening on http://127.0.0.1:${serverPort}`)
+    console.log(`codeforge server listening on http://127.0.0.1:${serverPort}`)
 
     await waitForHealth(`http://127.0.0.1:${serverPort}/global/health`)
     runner = Bun.spawn(["bun", "test:e2e", ...extraArgs], {

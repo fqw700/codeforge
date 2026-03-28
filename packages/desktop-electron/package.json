@@ -1,13 +1,13 @@
 {
-  "name": "@opencode-ai/desktop-electron",
+  "name": "@codeforge-ai/desktop-electron",
   "private": true,
   "version": "1.3.3",
   "type": "module",
   "license": "MIT",
-  "homepage": "https://opencode.ai",
+  "homepage": "https://YOUR_DOMAIN.ai",
   "author": {
-    "name": "OpenCode",
-    "email": "hello@opencode.ai"
+    "name": "CodeForge",
+    "email": "hello@codeforge.ai"
   },
   "scripts": {
     "typecheck": "tsgo -b",
@@ -24,8 +24,8 @@
   },
   "main": "./out/main/index.js",
   "dependencies": {
-    "@opencode-ai/app": "workspace:*",
-    "@opencode-ai/ui": "workspace:*",
+    "@codeforge-ai/app": "workspace:*",
+    "@codeforge-ai/ui": "workspace:*",
     "@solid-primitives/i18n": "2.2.1",
     "@solid-primitives/storage": "catalog:",
     "@solidjs/meta": "catalog:",

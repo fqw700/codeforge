@@ -1,6 +1,6 @@
-# OpenCode Desktop
+# CodeForge Desktop
 
-Native OpenCode desktop app, built with Tauri v2.
+Native CodeForge desktop app, built with Tauri v2.
 
 ## Prerequisites
 
