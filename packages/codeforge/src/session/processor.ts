@@ -19,6 +19,8 @@ import { SessionStatus } from "./status"
 import { SessionSummary } from "./summary"
 import type { Provider } from "@/provider/provider"
 import { Question } from "@/question"
+import { Hooks } from "../hook"
+
 
 export namespace SessionProcessor {
   const DOOM_LOOP_THRESHOLD = 3
@@ -225,6 +227,14 @@ export namespace SessionProcessor {
                   attachments: value.output.attachments,
                 },
               })
+
+              // PostToolUse hook
+              try {
+                const toolInput = value.input ?? match.state.input
+                const toolOutput = typeof value.output.output === "string" ? value.output.output : JSON.stringify(value.output.output)
+                yield* Effect.promise(() => Hooks.postToolUse(value.toolName, toolInput as Record<string, any>, toolOutput))
+              } catch {}
+
               delete ctx.toolcalls[value.toolCallId]
               return
             }
