@@ -3,7 +3,7 @@
   "provider": {
     "volcengine": {
       "options": {
-        "apiKey": "YOUR_ARK_API_KEY_HERE",
+        "apiKey": "your-api-key-here",
         "baseURL": "https://ark.cn-beijing.volces.com/api/coding/v3"
       },
       "models": {
